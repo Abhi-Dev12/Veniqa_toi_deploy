@@ -30,6 +30,7 @@ router.post('/login', passport.authenticate('login'), (req, res, next) => {
 })
 
 router.get('/isLoggedIn', (req, res, next) => {
+    console.log("here")
     return res.status(HttpStatusCode.OK).send(req.isAuthenticated())
 })
 

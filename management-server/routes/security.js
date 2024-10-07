@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 router.route('/login').post(passport.authenticate('login'), securityController.login);
 
 router.get('/isLoggedIn', (req, res, next) => {
+    console.log("here")
     return res.status(200).send(req.isAuthenticated())
 });
 

@@ -13,6 +13,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     async registerUser({ state }, payload) {
       if (!payload) return null;
+      console.log(payload, "payload")
 
       try {
         const { data } = await Vue.prototype.$axios({
@@ -42,7 +43,6 @@ export default {
           url: ProxyUrls.loginUrl,
           data: payload,
         });
-
         if (data) {
           commit('setEmail', data.email);
           commit('setName', data.name);

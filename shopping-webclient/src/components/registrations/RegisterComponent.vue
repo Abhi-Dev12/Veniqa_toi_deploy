@@ -99,27 +99,27 @@
 import VueRecaptcha from 'vue-recaptcha';
 import Config from '@/config.json';
 
-export default {
-  name: 'RegisterComponent',
-  components: {
-    VueRecaptcha
-  },
-  data() {
-    return {
-      username: '',
-      password: '',
-      confirmPassword: '',
-      phone: '',
-      name: '',
+  export default {
+    name: 'RegisterComponent',
+    components: {
+      VueRecaptcha
+    },
+    data() {
+      return {
+        username: '',
+        password: '',
+        confirmPassword: '',
+        phone: '',
+        name: '',
 
-      recaptchaKey: '',
-      captchaResp: ''
-    };
-  },
+        recaptchaKey: '',
+        captchaResp: ''
+      };
+    },
 
-  created() {
-    this.recaptchaKey = Config.RECAPTCHA;
-  },
+    created() {
+      this.recaptchaKey = Config.RECAPTCHA;
+    },
 
   methods: {
     async onVerify(response) {

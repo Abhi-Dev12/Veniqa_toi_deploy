@@ -52,21 +52,22 @@ db.dbConnection();
 var redisClient = null;
 
 if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-  redisClient = redis.createClient(process.env.VENIQA_REDIS_HOST);
-}
-else {
   redisClient = redis.createClient({
-    host: process.env.VENIQA_REDIS_HOST, 
-    port: process.env.VENIQA_REDIS_PORT, 
-    password: process.env.VENIQA_REDIS_PASSWORD, 
-    db: Number(process.env.VENIQA_REDIS_DB_NUMBER),
-    tls: {
-      host: process.env.VENIQA_REDIS_HOST,
-      port: process.env.VENIQA_REDIS_PORT,
-      servername: process.env.VENIQA_REDIS_HOST
-    }
+    host: process.env.VENIQA_REDIS_HOST,
+    port: process.env.VENIQA_REDIS_PORT,
+    password: process.env.VENIQA_REDIS_PASSWORD,
+    db: Number(process.env.VENIQA_REDIS_DB_NUMBER)
   });
+} else {
+  redisClient = redis.createClient({
+    host: process.env.VENIQA_REDIS_HOST,
+    port: process.env.VENIQA_REDIS_PORT,
+    password: process.env.VENIQA_REDIS_PASSWORD,
+    db: Number(process.env.VENIQA_REDIS_DB_NUMBER)
+  });
+  // Remove TLS configuration here, as you're not using SSL/TLS locally
 }
+
 
 redisClient.on('error', err => {
   console.error("Redis encountered an error --> ", err )
@@ -105,7 +106,7 @@ app.use(session({
   secret: process.env.VENIQA_SESSION_SECRET_KEY,
   resave: false,  // setting true forces a resave in store even if session not changed
   rolling: true,  // setting true updates expiration with maxAge after every user request
-  saveUninitialized: true,  // setting true saves even unmodified sessions
+  saveUninitialized: false,  // setting true saves even unmodified sessions
   cookie: {
     httpOnly: true,
     maxAge: config.get('session.max_age')
@@ -149,7 +150,9 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 /************************************************************** */
-
+// app.get('/', function(req, res) {
+//   res.send("abhishek")
+// })
 app.use('/', indexRouter);
 app.use('/security', securityRouter);
 app.use('/amazon', amazonRouter);

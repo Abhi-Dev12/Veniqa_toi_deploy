@@ -21,7 +21,7 @@
     "allowed_origins": [
         "https://www.veniqa.com", 
         "https://veniqa.com",
-        "https://shop.veniqa.com"
+        "https://shop.veniqa.com",
     ],
     "token_validity": {
         "password_reset_token_valid_for": 3600000
